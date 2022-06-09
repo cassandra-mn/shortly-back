@@ -14,3 +14,9 @@ CREATE TABLE urls (
     "createdAt" date DEFAULT NOW(),
     "userId" integer REFERENCES users("id")
 );
+
+CREATE TABLE sessions (
+    "id" serial PRIMARY KEY,
+    "token" text NOT NULL, 
+    "userId" integer REFERENCES users("id")
+);

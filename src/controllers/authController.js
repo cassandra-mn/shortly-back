@@ -20,8 +20,9 @@ export async function signIn(req, res) {
     try {
         const user = await connection.query('SELECT * FROM users WHERE "email" = $1', [email]);
         if (!user.rows[0] || !bcrypt.compareSync(password, user.rows[0].password)) return res.sendStatus(401);
-        await connection.query('INSERT INTO sessions (token, "userId") VALUES ($1, $2)', [uuid(), user.rows[0].id]);       
-        res.status(200).send(uuid());
+        const token = uuid();
+        await connection.query('INSERT INTO sessions (token, "userId") VALUES ($1, $2)', [token, user.rows[0].id]);       
+        res.status(200).send(token);
     } catch(e) {
         console.log(e);
         res.sendStatus(500);

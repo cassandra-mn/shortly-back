@@ -10,6 +10,7 @@ CREATE TABLE urls (
     "id" serial PRIMARY KEY,
     "url" text NOT NULL,
     "shortUrl" text NOT NULL,
+    "visitCount" integer DEFAULT 0,
     "createdAt" date DEFAULT NOW()
 );
 
